@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gorecard™</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --stripe-1: #c41e3a; /* Cardinal red */
+            --stripe-2: #1a5f2a; /* Forest green */
+            --stripe-3: #d4af37; /* Metallic gold */
+            --stripe-4: #8b0000; /* Dark red */
+            --stripe-5: #2d5a3d; /* Pine green */
+            --stripe-6: #b8860b; /* Dark goldenrod */
+            --stripe-7: #722f37; /* Wine */
+            --stripe-8: #355e3b; /* Hunter green */
+            --bg-base: #faf7f2; /* Warm cream paper */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Crimson Pro', Georgia, serif;
+            overflow-x: hidden;
+            background: var(--bg-base);
+        }
+
+        /* Wrapping paper background */
+        .wrapping-paper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 300vmax;
+            height: 300vmax;
+            z-index: 0;
+            overflow: hidden;
+            background: var(--bg-base);
+            transform: translate(-50%, -50%) rotate(-45deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stripe {
+            white-space: nowrap;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-transform: lowercase;
+            opacity: 0.85;
+            height: 32px;
+            line-height: 32px;
+            animation: scroll-stripe 30s linear infinite;
+        }
+
+        @keyframes scroll-stripe {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .stripe span {
+            padding: 0 25px;
+        }
+
+        /* Generate stripe colors and animation timing */
+        .stripe:nth-child(8n+1) { color: var(--stripe-1); animation-duration: 45s; }
+        .stripe:nth-child(8n+2) { color: var(--stripe-2); animation-duration: 42s; animation-delay: -5s; }
+        .stripe:nth-child(8n+3) { color: var(--stripe-3); animation-duration: 48s; animation-delay: -10s; }
+        .stripe:nth-child(8n+4) { color: var(--stripe-4); animation-duration: 40s; animation-delay: -15s; }
+        .stripe:nth-child(8n+5) { color: var(--stripe-5); animation-duration: 46s; animation-delay: -2s; }
+        .stripe:nth-child(8n+6) { color: var(--stripe-6); animation-duration: 43s; animation-delay: -8s; }
+        .stripe:nth-child(8n+7) { color: var(--stripe-7); animation-duration: 50s; animation-delay: -12s; }
+        .stripe:nth-child(8n) { color: var(--stripe-8); animation-duration: 38s; animation-delay: -18s; }
+
+        /* Content container */
+        .content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* Video card */
+        .video-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            animation: float-in 1s ease-out;
+        }
+
+        @keyframes float-in {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .video-card h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--stripe-1);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+        }
+
+        .video-card .year {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            color: var(--stripe-5);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: linear-gradient(135deg, var(--stripe-4), var(--stripe-7));
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container video,
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .video-placeholder svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .subtitle {
+            margin-top: 25px;
+            font-size: 1.1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Decorative ribbon */
+        .ribbon {
+            position: absolute;
+            top: -10px;
+            right: 30px;
+            background: var(--stripe-3);
+            color: white;
+            padding: 10px 20px 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .ribbon::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            border-left: 25px solid var(--stripe-3);
+            border-right: 25px solid var(--stripe-3);
+            border-bottom: 10px solid transparent;
+            width: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-card {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .video-card h1 {
+                font-size: 2.2rem;
+            }
+
+            .stripe {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Wrapping paper background -->
+    <div class="wrapping-paper" id="wrapping-paper"></div>
+    
+    <script>
+        // Generate stripes dynamically for full coverage
+        const wrapper = document.getElementById('wrapping-paper');
+        const text = '<span>the gorecard™</span>'.repeat(40);
+        const numStripes = 120; // Enough to cover large screens
+        
+        for (let i = 0; i < numStripes; i++) {
+            const stripe = document.createElement('div');
+            stripe.className = 'stripe';
+            stripe.innerHTML = text;
+            wrapper.appendChild(stripe);
+        }
+    </script>
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="video-card">
+            <div class="ribbon">2025</div>
+            <h1>the gorecard™</h1>
+            <p class="year">2025 Holiday Edition</p>
+            
+            <div class="video-container">
+                <!-- Replace this placeholder with your actual video embed -->
+                <div class="video-placeholder">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <span>Your video will appear here</span>
+                </div>
+                
+                <!-- 
+                OPTION 1: Self-hosted video
+                <video controls poster="thumbnail.jpg">
+                    <source src="your-video.mp4" type="video/mp4">
+                </video>
+                
+                OPTION 2: YouTube embed
+                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+                
+                OPTION 3: Vimeo embed
+                <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID" allowfullscreen></iframe>
+                -->
+            </div>
+            
+            <p class="subtitle">Wishing you joy, love, and laughter this holiday season ✨</p>
+        </div>
+    </div>
+</body>
+</html>
+
